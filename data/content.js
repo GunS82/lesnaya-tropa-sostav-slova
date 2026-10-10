@@ -114,6 +114,7 @@
     word("zazveneli", "зазвенели", [morph("prefix", "за"), morph("root", "звен"), morph("ending", "ели")], { familyId: "zven", lemmaId: "zazveneli" }),
     word("prigorod", "пригород", [morph("prefix", "при"), morph("root", "город"), morph("ending", "", z)], { familyId: "gorod", lemmaId: "prigorod" }),
     word("podyezd", "подъезд", [morph("prefix", "под"), morph("root", "ъезд"), morph("ending", "", z)], { familyId: "ezd", lemmaId: "podyezd" }),
+    word("podvodny", "подводный", [morph("prefix", "под"), morph("root", "вод"), morph("suffix", "н"), morph("ending", "ый")], { familyId: "voda", lemmaId: "podvodny" }),
     word("podorozhnik", "подорожник", [morph("prefix", "по"), morph("root", "дорож"), morph("suffix", "ник"), morph("ending", "", z)], { familyId: "dorog", lemmaId: "podorozhnik" }),
     word("podorozhniki", "подорожники", [morph("prefix", "по"), morph("root", "дорож"), morph("suffix", "ник"), morph("ending", "и")], { familyId: "dorog", lemmaId: "podorozhnik" }),
     word("naezdnik", "наездник", [morph("prefix", "на"), morph("root", "езд"), morph("suffix", "ник"), morph("ending", "", z)], { familyId: "ezd", lemmaId: "naezdnik" }),
@@ -145,8 +146,8 @@
       title: "Комната Корня",
       guardian: "root",
       questions: [
-        choice("Какие слова — родственники?", ["брат, братик, братишка", "мама, сын, дедушка", "гора, лиса, оса"], "брат, братик, братишка"),
-        choice("Где родственные слова, а не названия родственников?", ["мама, сын, дедушка, тётя", "сын, сынок, сыночек, сынишка"], "сын, сынок, сыночек, сынишка"),
+        choice("Какие слова однокоренные?", ["брат, братик, братишка", "мама, сын, дедушка", "гора, лиса, оса"], "брат, братик, братишка"),
+        choice("Где однокоренные слова?", ["мама, сын, дедушка, тётя", "сын, сынок, сыночек, сынишка"], "сын, сынок, сыночек, сынишка"),
         choice("Какой корень у слов море, моряк, морской?", ["мор", "море", "як"], "мор"),
         choice("Какая пара однокоренная?", ["гора — горный", "лиса — леса", "оса — осина"], "гора — горный"),
         { type: "markWordPart", word: "барабанщик", part: "root", answer: [0, 6], prompt: "барабанщик", question: "Найди корень." }
@@ -172,7 +173,7 @@
         choice("Где стоит приставка?", ["перед корнем", "после корня", "в самом конце"], "перед корнем"),
         choice("Чем отличаются входит и выходит?", ["разными приставками", "разными корнями", "разными окончаниями"], "разными приставками"),
         { type: "markWordPart", word: "пригород", part: "prefix", answer: [0, 2], prompt: "пригород", question: "Найди приставку." },
-        choice("Что делает приставка пере- в слове переписать?", ["действие заново", "действие началось", "меняет форму"], "действие заново"),
+        choice("Что делает приставка пере- в слове переписать?", ["Пишем заново", "действие началось", "меняет форму"], "Пишем заново"),
         choice("Кто из этих частей — приставка?", ["при-", "-ник-", "-а"], "при-")
       ]
     },
@@ -256,6 +257,11 @@
       "sea-sailor": { emoji: "⚓", caption: "Моряк", alt: "Моряк у моря" },
       "light-lamp": { emoji: "💡", caption: "Свет", alt: "Лампа" },
       "white-hare": { emoji: "🐇", caption: "Белый", alt: "Белый заяц" },
+      ships: { emoji: "⛵", caption: "Морской", alt: "Лодки на воде" },
+      shine: { emoji: "💡", caption: "Светить", alt: "Фонарь светит на тропу" },
+      "bright-grove": { emoji: "☀️", caption: "Светлый", alt: "Светлая берёзовая роща" },
+      "white-kitten": { emoji: "🐱", caption: "Беленький", alt: "Беленький котёнок" },
+      "snow-white": { emoji: "❄️", caption: "Белеет", alt: "Снег белеет на крышах" },
       "feed-bowl": { emoji: "🥣", caption: "Корм", alt: "Миска корма" },
       "wasp-aspen": { emoji: "🐝", caption: "Оса и осина", alt: "Оса и осина" },
       "prefix-in": { emoji: "🚪", caption: "Входит", alt: "Ребёнок входит в дом" },
@@ -315,15 +321,14 @@
         { id: "zone_root", title: "Глава I. Корень", icon: "🌳", kind: "bridge", zone: "root" },
         { id: "root_meet", title: "Знакомство с Корнем", icon: "🌳", zone: "root" },
         { id: "root_family", title: "Найди родственников", icon: "👨‍👦", zone: "root" },
-        { id: "root_names", title: "Родственники или слова?", icon: "👪", zone: "root" },
-        { id: "root_tree", title: "Грибное дерево", icon: "🍄", zone: "root" },
+        { id: "root_tree", title: "Гриб. Родственные слова", icon: "🍄", zone: "root" },
         { id: "root_hide", title: "Что хранит Корень?", icon: "🍃", zone: "root" },
-        { id: "root_three", title: "Три семьи", icon: "🌲", zone: "root" },
-        { id: "root_lookalike", title: "Похожие буквы", icon: "🦊", zone: "root" },
+        { id: "root_three", title: "Три группы", icon: "🌲", zone: "root" },
+        { id: "root_lookalike", title: "Однокоренные или похожие?", icon: "🦊", zone: "root" },
         { id: "root_find", title: "Найди корень сам", icon: "⭐", zone: "root" },
         { id: "zone_ending", title: "Глава II. Окончание", icon: "🔲", kind: "bridge", zone: "ending" },
-        { id: "end_clothes", title: "Слово меняет одежду", icon: "🍎", zone: "ending" },
-        { id: "end_dress", title: "Переодень Окончание", icon: "🌿", zone: "ending" },
+        { id: "end_clothes", title: "Окончание меняет форму слова", icon: "🍎", zone: "ending" },
+        { id: "end_dress", title: "Подставь окончание", icon: "🌿", zone: "ending" },
         { id: "end_pine", title: "Сосна и река", icon: "🌲", zone: "ending" },
         { id: "end_fix", title: "Почини предложение", icon: "⛈️", zone: "ending" },
         { id: "end_or_new", title: "Форма или новое слово?", icon: "🌉", zone: "ending" },
@@ -334,7 +339,7 @@
         { id: "pre_meaning", title: "Приставка меняет смысл", icon: "🔔", zone: "prefix" },
         { id: "pre_find", title: "Найди приставку", icon: "🔎", zone: "prefix" },
         { id: "zone_suffix", title: "Глава IV. Суффикс", icon: "🛠️", kind: "bridge", zone: "suffix" },
-        { id: "suf_house", title: "Машина новых слов", icon: "🏠", zone: "suffix" },
+        { id: "suf_house", title: "Создатель новых слов", icon: "🏠", zone: "suffix" },
         { id: "suf_elephant", title: "Слоновая семья", icon: "🐘", zone: "suffix" },
         { id: "suf_meaning", title: "Что означает суффикс?", icon: "🐯", zone: "suffix" },
         { id: "suf_who", title: "Кто сделал слово?", icon: "⚽", zone: "suffix" },
@@ -345,8 +350,8 @@
         { id: "team_needed", title: "Кто лишний?", icon: "❓", zone: "team" },
         { id: "team_builder", title: "Слово-конструктор", icon: "🧱", zone: "team" },
         { id: "team_new_or_form", title: "Новое слово или форма?", icon: "🚪", zone: "team" },
-        { id: "team_broken", title: "Сломанная машина", icon: "⚙️", zone: "team" },
-        { id: "team_exam", title: "Четыре комнаты", icon: "🏰", zone: "team" },
+        { id: "team_broken", title: "Сломанные слова", icon: "⚙️", zone: "team" },
+        { id: "team_exam", title: "Финальное испытание", icon: "🏰", zone: "team" },
         { id: "finish", title: "Финиш", icon: "🏆", kind: "finish", zone: "team" }
       ]
     },
@@ -433,48 +438,20 @@
     ]
   };
 
-  E.root_names = {
-    type: "rounds",
-    title: "Родственники или слова?",
-    guardian: "root",
-    scene: "family-people",
-    owl: "Названия людей в семье и родственные слова — это разное.",
-    hint: "Родственные слова имеют общую часть.",
-    success: "Родственные слова — это слова с общим корнем, а не просто люди из одной семьи.",
-    speak: "Где находятся родственные слова?",
-    rounds: [
-      {
-        type: "singleChoice",
-        scene: "family-people",
-        groupsShow: [{ title: "Группа 1", words: ["мама", "сын", "дедушка", "тётя"] }],
-        question: "Это названия родственников. Есть ли здесь общая часть слова?",
-        options: ["нет, это разные слова", "да, все от корня мам"],
-        answer: "нет, это разные слова"
-      },
-      {
-        type: "singleChoice",
-        groupsShow: [{ title: "Группа 2", words: ["сын", "сынок", "сыночек", "сынишка"] }],
-        question: "Где находятся родственные слова?",
-        options: ["во второй группе", "в первой группе", "в обеих группах"],
-        answer: "во второй группе"
-      }
-    ]
-  };
-
   E.root_tree = {
     type: "wordFamilyTree",
-    title: "Грибное дерево",
+    title: "Гриб. Родственные слова",
     guardian: "root",
     scene: "mushroom",
     center: "ГРИБ",
     root: "гриб",
-    question: "Присоедини к дереву только родственников гриба.",
-    owl: "Корень умеет находить семью слова.",
-    hint: "У родственников общий смысл и общая часть гриб.",
+    question: "Найди родственные слова для слова «гриб».",
+    owl: "Корень умеет находить родственные слова.",
+    hint: "У родственных слов общий смысл и общая часть гриб.",
     hint2: "Подберёзовик — другой гриб, но другое слово.",
-    extraHint: "Ягода, лесник и подберёзовик — не из семьи «гриб».",
+    extraHint: "Ягода, лесник и подберёзовик — не родственные слову «гриб».",
     success: "Корень гриб держит грибок, грибник и грибной.",
-    speak: "Присоедини к дереву родственников гриба.",
+    speak: "Найди родственные слова для слова гриб.",
     tokens: [
       { text: "грибок", role: "family", scene: "mushroom-small" },
       { text: "грибник", role: "family", scene: "mushroom-picker" },
@@ -489,73 +466,74 @@
     type: "rounds",
     title: "Что хранит Корень?",
     guardian: "root",
-    owl: "Закроем корень. Останется ли слово?",
+    owl: "Без корня мы не узнаем слово.",
     hint: "Без корня исчезает главный общий смысл.",
-    success: "Без меня исчез главный общий смысл.",
+    success: "Без корня мы не узнаем слово.",
     speak: "Что будет, если спрятать корень?",
     rounds: [
       {
         type: "hideRoot",
         covers: [{ left: "трава", right: "травка", root: "трав" }],
-        question: "Корень закрыт. Осталось слово?",
-        options: ["нет", "да"],
-        answer: "нет",
-        owl: "трава — травка. Спрячем трав-."
+        owl: "Без корня мы не узнаем слово.",
+        coverPrompt: "Угадаешь слово?",
+        options: ["Нет", "Да"],
+        answer: "Нет"
       },
       {
         type: "hideRoot",
         covers: [{ left: "шум", right: "шуметь", root: "шум" }],
-        question: "Без корня шум остался смысл?",
-        options: ["нет", "да"],
-        answer: "нет"
+        question: "Без корня остался смысл?",
+        options: ["Да", "Нет"],
+        answer: "Нет"
       },
       {
         type: "hideRoot",
         covers: [{ left: "смелый", right: "смелость", root: "смел" }],
-        question: "Осталось слово без корня?",
-        options: ["нет", "да"],
-        answer: "нет"
+        question: "Без корня остался смысл?",
+        options: ["Да", "Нет"],
+        answer: "Нет"
       }
     ]
   };
 
   E.root_three = {
     type: "classification",
-    title: "Три семьи",
+    title: "Три группы",
     guardian: "root",
-    scene: "meadow",
-    question: "Разложи слова по трём деревьям.",
-    owl: "В каждой семье один корень.",
+    scene: false,
+    compact: true,
+    question: "Разложи слова по трём родственным группам.",
+    owl: "В каждой группе один корень.",
     hint: "море, моряк, морской держатся за мор-.",
-    hint2: "свет- и бел- — две другие семьи.",
+    hint2: "свет- и бел- — две другие группы.",
     success: "Три корня зажглись: мор-, свет-, бел-.",
-    speak: "Разложи слова по трём семьям.",
+    speak: "Разложи слова по трём родственным группам.",
     groups: [
-      { id: "more", title: "Семья моря", root: "мор" },
-      { id: "svet", title: "Семья света", root: "свет" },
-      { id: "bel", title: "Семья белого", root: "бел" }
+      { id: "more", title: "мор-", root: "мор" },
+      { id: "svet", title: "свет-", root: "свет" },
+      { id: "bel", title: "бел-", root: "бел" }
     ],
     items: [
       { id: "a", text: "море", group: "more", scene: "sea" },
       { id: "b", text: "моряк", group: "more", scene: "sea-sailor" },
-      { id: "c", text: "морской", group: "more" },
+      { id: "c", text: "морской", group: "more", scene: "ships" },
       { id: "d", text: "свет", group: "svet", scene: "light-lamp" },
-      { id: "e", text: "светить", group: "svet" },
-      { id: "f", text: "светлый", group: "svet" },
+      { id: "e", text: "светить", group: "svet", scene: "shine" },
+      { id: "f", text: "светлый", group: "svet", scene: "bright-grove" },
       { id: "g", text: "белый", group: "bel", scene: "white-hare" },
-      { id: "h", text: "беленький", group: "bel" },
-      { id: "i", text: "белеет", group: "bel" }
+      { id: "h", text: "беленький", group: "bel", scene: "white-kitten" },
+      { id: "i", text: "белеет", group: "bel", scene: "snow-white" }
     ]
   };
 
   E.root_lookalike = {
     type: "rounds",
-    title: "Одинаковые буквы ещё не семья",
+    title: "Однокоренные или похожие?",
     guardian: "root",
     owl: "Чтобы слова были однокоренными, мало похожих букв. Нужен общий смысл.",
     hint: "Сравни смысл, а не только буквы.",
     success: "Похожие буквы ещё не делают слова родственными.",
-    speak: "Одинаковые буквы ещё не семья.",
+    speak: "Однокоренные или похожие?",
     rounds: [
       choice("гора — горный", ["однокоренные", "просто похожие буквы"], "однокоренные", { scene: "mountain", guardian: "root" }),
       choice("лиса — леса", ["однокоренные", "просто похожие буквы"], "просто похожие буквы", { scene: "fox" }),
@@ -582,7 +560,7 @@
 
   E.end_clothes = {
     type: "rounds",
-    title: "Одно слово меняет одежду",
+    title: "Окончание меняет форму слова",
     guardian: "ending",
     owl: "Я Окончание. Я меняюсь, чтобы слова могли дружить друг с другом.",
     hint: "Если смысл тот же, а изменился только конец — это форма.",
@@ -597,7 +575,7 @@
 
   E.end_dress = {
     type: "rounds",
-    title: "Переодень Окончание",
+    title: "Подставь окончание",
     guardian: "ending",
     scene: "birch",
     owl: "Надень на меня нужный костюм.",
@@ -669,8 +647,12 @@
     type: "rounds",
     title: "Форма или новое слово?",
     guardian: "ending",
-    owl: "Форма — это то же слово в другой одежде. Новое слово — уже другой житель семьи.",
-    hint: "Если появился суффикс, это новое слово.",
+    owl: "Форма слова: это то же самое слово, но с другим окончанием.",
+    hint: "Новое слово: это другое слово со своим значением. Оно может быть родственным исходному слову.",
+    tips: [
+      { title: "Форма слова", text: "Это то же самое слово, но с другим окончанием." },
+      { title: "Новое слово", text: "Это другое слово со своим значением. Оно может быть родственным исходному слову." }
+    ],
     success: "Ты отличаешь форму от однокоренного слова.",
     speak: "Это форма или новое слово?",
     rounds: [
@@ -766,7 +748,7 @@
       choice("пере- + писать. Что получилось?", ["переписать", "записать", "выписать"], "переписать", { scene: "writing" }),
       choice("Что значит переписать?", ["написать заново", "действие началось", "выйти наружу"], "написать заново"),
       choice("за- + звенели. Что получилось?", ["зазвенели", "перезвенели", "вызвенели"], "зазвенели", { scene: "bells" }),
-      choice("Что значит зазвенели?", ["действие началось", "написать заново", "выйти наружу"], "действие началось")
+      choice("Что значит зазвенели?", ["Начали звенеть", "написать заново", "выйти наружу"], "Начали звенеть")
     ]
   };
 
@@ -788,7 +770,7 @@
 
   E.suf_house = {
     type: "rounds",
-    title: "Машина новых слов",
+    title: "Создатель новых слов",
     guardian: "suffix",
     scene: "house",
     owl: "Я Суффикс. Добавь меня после Корня — и получится новое слово.",
@@ -800,7 +782,7 @@
         type: "meetCharacter",
         guardian: "suffix",
         quote: "Я Суффикс. Добавь меня после Корня — и получится новое слово.",
-        question: "Запомни Суффикса. Он творец команды.",
+        question: "Запомни Суффикса. Он создатель новых слов.",
         answer: "ok",
         options: ["ok"]
       },
@@ -873,7 +855,7 @@
     speak: "Что означает суффикс?",
     rounds: [
       choice("тигр → тигрёнок. Что значит -ёнок-?", ["детёныш", "большой зверь", "форма слова"], "детёныш", { scene: "tiger-cub" }),
-      choice("учить → учитель. Что значит -тель-?", ["человек по деятельности", "маленький", "форма слова"], "человек по деятельности", { scene: "teacher" })
+      choice("Что означает слово «учитель»?", ["Профессия", "маленький", "форма слова"], "Профессия", { scene: "teacher" })
     ]
   };
 
@@ -897,21 +879,21 @@
     type: "rounds",
     title: "Приставка или суффикс?",
     guardian: "suffix",
-    owl: "Приставка слева от Корня. Суффикс справа.",
+    owl: "Приставка стоит перед корнем. Суффикс стоит после корня.",
     hint: "при-, в-, под- — приставки. -ник-, -ок-, -ик- — суффиксы.",
-    success: "Ты отправляешь части по местам.",
-    speak: "Отправь часть Приставке или Суффиксу.",
+    success: "Ты видишь, где стоит выделенная часть.",
+    speak: "Посмотри на выделенную часть слова. Это приставка или суффикс?",
     rounds: [
-      { type: "sendPart", prompt: "при-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
-      { type: "sendPart", prompt: "-ник-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "suffix" },
-      { type: "sendPart", prompt: "под-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
-      { type: "sendPart", prompt: "-ок-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "suffix" },
-      { type: "sendPart", prompt: "пере-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
-      { type: "sendPart", prompt: "-ёнок-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "suffix" },
-      { type: "sendPart", prompt: "за-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
-      { type: "sendPart", prompt: "-тель-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "suffix" },
-      { type: "sendPart", prompt: "на-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
-      { type: "sendPart", prompt: "-ик-", question: "Куда отправить эту часть?", options: ["prefix", "suffix"], answer: "suffix" }
+      { type: "sendPart", word: "подводный", part: "под", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
+      { type: "sendPart", word: "грибник", part: "ник", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "suffix" },
+      { type: "sendPart", word: "пригород", part: "при", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
+      { type: "sendPart", word: "грибок", part: "ок", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "suffix" },
+      { type: "sendPart", word: "переписать", part: "пере", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
+      { type: "sendPart", word: "тигрёнок", part: "ёнок", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "suffix" },
+      { type: "sendPart", word: "зазвенели", part: "за", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
+      { type: "sendPart", word: "учитель", part: "тель", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "suffix" },
+      { type: "sendPart", word: "наездник", part: "на", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "prefix", guardian: "prefix" },
+      { type: "sendPart", word: "домик", part: "ик", question: "Посмотри на выделенную часть слова. Это приставка или суффикс?", options: ["prefix", "suffix"], answer: "suffix" }
     ]
   };
 
@@ -1093,24 +1075,34 @@
 
   E.team_broken = {
     type: "rounds",
-    title: "Сломанная машина слов",
+    title: "Сломанные слова",
     guardian: "team",
     scene: "workshop",
-    owl: "В мастерской перепутались части. Найди ошибку.",
+    owl: "Части слова перепутались. Найди ошибку.",
     hint: "Проверь, все ли части на своих местах и нет ли лишних.",
-    success: "Машина слов починена.",
+    success: "Слова собраны верно.",
     speak: "Слово собрано верно?",
     rounds: [
       {
         type: "brokenMachine",
-        prompt: "ПРИ | ГОРОД | НИК | Ы",
-        question: "Слово пригородникы собрано верно?",
-        options: ["нет, лишние части", "да, всё верно"],
-        answer: "нет, лишние части"
+        prompt: "ПРИ | ГОРОД | НИК",
+        chunks: [
+          { text: "ПРИ", ok: true },
+          { text: "ГОРОД", ok: true },
+          { text: "НИК", ok: false }
+        ],
+        question: "Слово «пригородник» собрано верно?",
+        options: ["Нет, лишние части", "да, всё верно"],
+        answer: "Нет, лишние части"
       },
       {
         type: "brokenMachine",
         prompt: "ПОД | ДОРОЖ | НИК",
+        chunks: [
+          { text: "ПОД", ok: false },
+          { text: "ДОРОЖ", ok: true },
+          { text: "НИК", ok: true }
+        ],
         question: "Так собирается подорожник?",
         options: ["нет, приставка по-, а не под-", "да, всё верно"],
         answer: "нет, приставка по-, а не под-"
@@ -1118,15 +1110,25 @@
       {
         type: "brokenMachine",
         prompt: "НА | ЕЗД | НИК",
+        chunks: [
+          { text: "НА", ok: true },
+          { text: "ЕЗД", ok: true },
+          { text: "НИК", ok: true }
+        ],
         question: "Слово наездник собрано верно?",
         options: ["да, всё верно", "нет, корень не тот"],
         answer: "да, всё верно"
       },
       {
         type: "brokenMachine",
-        prompt: "С | ПУТ | НИК | И",
-        question: "Слово спутники собрано верно?",
-        options: ["да, всё верно", "нет, суффикс не тот"],
+        prompt: "С | ПУТ | НИК",
+        chunks: [
+          { text: "С", ok: true },
+          { text: "ПУТ", ok: true },
+          { text: "НИК", ok: true }
+        ],
+        question: "Слово «спутник» собрано верно?",
+        options: ["да, всё верно", "Нет, суффикс неправильный"],
         answer: "да, всё верно"
       }
     ]
@@ -1134,13 +1136,13 @@
 
   E.team_exam = {
     type: "examRooms",
-    title: "Четыре комнаты",
+    title: "Финальное испытание",
     guardian: "team",
     scene: "castle",
     owl: "Пять коротких проверок в каждой комнате.",
     hint: "Вспомни правило персонажа этой комнаты.",
-    success: "Ты прошёл все комнаты Замка состава слова!",
-    speak: "Финальный экзамен. Четыре комнаты и комната всей команды.",
+    success: "Ты прошёл финальное испытание Замка состава слова!",
+    speak: "Финальное испытание. Пройди все комнаты Замка состава слова.",
     rooms: examRooms
   };
 })();

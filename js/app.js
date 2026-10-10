@@ -69,6 +69,7 @@
         var dress = document.getElementById("dress-ending");
         if (dress) dress.textContent = value;
       }
+      if (ex.type === "brokenMachine") ui.paintBrokenParts();
       afterStepSuccess();
     } else {
       ui.fail(ex, node);
@@ -345,7 +346,6 @@
       return;
     }
     ui.fail(ex, document.querySelector(".parse-grid"));
-    if (game.hintLevel >= 3) ui.glowCorrect(ex);
   }
 
   document.getElementById("app").addEventListener("click", function (event) {

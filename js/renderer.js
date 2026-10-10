@@ -398,8 +398,9 @@
   Renderer.prototype.renderByType = function (exercise) {
     switch (exercise.type) {
       case "singleChoice":
-      case "brokenMachine":
         return this.renderSingleChoice(exercise);
+      case "brokenMachine":
+        return this.renderBrokenMachine(exercise);
       case "insertWord":
         return this.renderInsertWord(exercise);
       case "classification":
@@ -486,7 +487,7 @@
       galleryHtml +
       (exercise.prompt ? '<p class="word-hero">' + escapeHtml(exercise.prompt) + "</p>" : "") +
       this.groupsShowHtml(exercise.groupsShow) +
-      this.coversHtml(exercise.covers) +
+      this.coversHtml(exercise.covers, exercise.coverPrompt) +
       this.formsHtml(exercise.forms) +
       this.morphemePreview(exercise.wordPreview) +
       (exercise.quote
@@ -584,7 +585,7 @@
     );
   };
 
-  Renderer.prototype.coversHtml = function (covers) {
+  Renderer.prototype.coversHtml = function (covers, caption) {
     if (!covers || !covers.length) return "";
     function face(word, root) {
       var norm = ForestGame.normalize(word);
@@ -599,6 +600,7 @@
     }
     return (
       '<div class="cover-list">' +
+      (caption ? '<p class="cover-prompt">' + escapeHtml(caption) + "</p>" : "") +
       covers
         .map(function (pair) {
           return (
@@ -611,6 +613,69 @@
         })
         .join("") +
       "</div>"
+    );
+  };
+
+  Renderer.prototype.highlightPartHtml = function (word, part) {
+    var text = word || "";
+    var mark = part || "";
+    if (!text) return "";
+    var at = ForestGame.normalize(text).indexOf(ForestGame.normalize(mark));
+    var inner;
+    if (at < 0 || !mark) {
+      inner = escapeHtml(text);
+    } else {
+      inner =
+        escapeHtml(text.slice(0, at)) +
+        '<span class="part-mark">' +
+        escapeHtml(text.slice(at, at + mark.length)) +
+        "</span>" +
+        escapeHtml(text.slice(at + mark.length));
+    }
+    return '<p class="word-hero word-with-part">' + inner + "</p>";
+  };
+
+  Renderer.prototype.tipsHtml = function (exercise) {
+    var tips = exercise.tips || (this.parentExercise && this.parentExercise.tips);
+    if (!tips || !tips.length) return "";
+    return (
+      '<div class="tips-box">' +
+      tips
+        .map(function (tip) {
+          return (
+            '<p><strong>' +
+            escapeHtml(tip.title) +
+            ":</strong> " +
+            escapeHtml(tip.text) +
+            "</p>"
+          );
+        })
+        .join("") +
+      "</div>"
+    );
+  };
+
+  Renderer.prototype.brokenWordHtml = function (exercise) {
+    var chunks = exercise.chunks;
+    if (!chunks || !chunks.length) {
+      return exercise.prompt ? '<p class="word-hero">' + escapeHtml(exercise.prompt) + "</p>" : "";
+    }
+    return (
+      '<p class="word-hero broken-word">' +
+      chunks
+        .map(function (chunk, index) {
+          var sep = index ? '<span class="broken-sep">|</span>' : "";
+          return (
+            sep +
+            '<span class="broken-chunk" data-ok="' +
+            (chunk.ok ? "1" : "0") +
+            '">' +
+            escapeHtml(chunk.text) +
+            "</span>"
+          );
+        })
+        .join("") +
+      "</p>"
     );
   };
 
@@ -763,6 +828,17 @@
     return (
       this.titleBlock(exercise) +
       (exercise.sentence ? '<div class="sentence" id="sentence-view">' + escapeHtml(exercise.sentence) + "</div>" : "") +
+      this.optionButtons(this.view.options, "choose") +
+      this.tipsHtml(exercise)
+    );
+  };
+
+  Renderer.prototype.renderBrokenMachine = function (exercise) {
+    this.view.options = ForestGame.shuffle(exercise.options.slice());
+    var copy = Object.assign({}, exercise, { prompt: "" });
+    return (
+      this.titleBlock(copy) +
+      this.brokenWordHtml(exercise) +
       this.optionButtons(this.view.options, "choose")
     );
   };
@@ -787,9 +863,12 @@
     this.view.selected = null;
     var items = ForestGame.shuffle(exercise.items.slice());
     var self = this;
+    var wrap = exercise.compact ? "class-compact" : "";
     return (
       this.titleBlock(exercise) +
-      '<div class="word-bank" id="class-bank">' +
+      '<div class="' +
+      wrap +
+      '"><div class="word-bank" id="class-bank">' +
       items
         .map(function (item) {
           var face = item.scene ? self.miniScene(item.scene) : "";
@@ -820,7 +899,7 @@
           );
         })
         .join("") +
-      "</div>"
+      "</div></div>"
     );
   };
 
@@ -1170,7 +1249,6 @@
 
   Renderer.prototype.renderSendPart = function (exercise) {
     this.view.options = ForestGame.shuffle(exercise.options.slice());
-    var self = this;
     var head = Object.assign({}, exercise, { prompt: "" });
     return (
       this.titleBlock(head) +
@@ -1178,9 +1256,7 @@
       '<button type="button" class="slot-card team-prefix" data-action="choose" data-value="prefix">' +
       this.portraitHtml("prefix", "tiny") +
       "<strong>Приставка</strong></button>" +
-      '<p class="word-hero">' +
-      escapeHtml(exercise.prompt || "") +
-      "</p>" +
+      this.highlightPartHtml(exercise.word || exercise.prompt, exercise.part) +
       '<button type="button" class="slot-card team-suffix" data-action="choose" data-value="suffix">' +
       this.portraitHtml("suffix", "tiny") +
       "<strong>Суффикс</strong></button>" +
@@ -1279,16 +1355,13 @@
       var slots = root.querySelectorAll(".slot-card");
       for (var p = 0; p < slots.length; p += 1) slots[p].classList.add("is-glow");
     }
-    if (type === "parseChoices") {
-      var expect = exercise.parts || {};
-      var parseChips = root.querySelectorAll(".parse-field .chip");
-      for (var g = 0; g < parseChips.length; g += 1) {
-        var role = parseChips[g].getAttribute("data-role");
-        var value = parseChips[g].getAttribute("data-value");
-        if (ForestGame.normalize(String(value || "")) === ForestGame.normalize(String(expect[role] || ""))) {
-          parseChips[g].classList.add("is-glow");
-        }
-      }
+  };
+
+  Renderer.prototype.paintBrokenParts = function () {
+    var nodes = this.el("exercise").querySelectorAll(".broken-chunk");
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (nodes[i].getAttribute("data-ok") === "1") nodes[i].classList.add("is-ok");
+      else nodes[i].classList.add("is-extra");
     }
   };
 

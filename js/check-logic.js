@@ -26,8 +26,8 @@ const progress = {
 };
 const game = new context.window.ForestGame(data, progress);
 const renderer = new context.window.ForestRenderer({ querySelector: function () { return null; }, querySelectorAll: function () { return []; } }, game);
-assert.strictEqual(ids.length, 30, "30 exercises, got " + ids.length);
-assert.strictEqual(new Set(ids).size, 30);
+assert.strictEqual(ids.length, 29, "29 exercises, got " + ids.length);
+assert.strictEqual(new Set(ids).size, 29);
 assert.strictEqual(Object.keys(data.exercises).sort().join(","), ids.slice().sort().join(","));
 assert.notStrictEqual(data.storageKey, "forestGrammarProgress");
 assert.notStrictEqual(data.storageKey, "forestWordMeaningProgress");
@@ -123,8 +123,43 @@ assert.ok(findWord("palto").indeclinable);
 assert.ok(game.checkFamilyTree(data.exercises.root_tree, ["грибок", "грибник", "грибной"]).ok);
 assert.ok(!game.checkFamilyTree(data.exercises.root_tree, ["грибок", "ягода"]).ok);
 
-const namesRound = data.exercises.root_names.rounds[1];
-assert.ok(game.checkSingle(namesRound, "во второй группе"));
+assert.ok(!data.exercises.root_names, "assignment 3 root_names removed");
+assert.ok(!ids.includes("root_names"));
+
+assert.strictEqual(data.exercises.root_tree.title, "Гриб. Родственные слова");
+assert.strictEqual(data.exercises.root_tree.question, "Найди родственные слова для слова «гриб».");
+assert.strictEqual(data.exercises.root_three.title, "Три группы");
+assert.strictEqual(data.exercises.root_three.question, "Разложи слова по трём родственным группам.");
+assert.ok(data.exercises.root_three.items.every((item) => item.scene), "task 6 every word has a picture");
+assert.strictEqual(data.exercises.root_lookalike.title, "Однокоренные или похожие?");
+assert.strictEqual(data.exercises.end_clothes.title, "Окончание меняет форму слова");
+assert.strictEqual(data.exercises.end_dress.title, "Подставь окончание");
+assert.strictEqual(data.exercises.suf_house.title, "Создатель новых слов");
+assert.ok(data.exercises.suf_house.rounds[0].question.indexOf("создатель новых слов") !== -1);
+assert.strictEqual(data.exercises.suf_meaning.rounds[1].answer, "Профессия");
+assert.strictEqual(data.exercises.pre_meaning.rounds[3].answer, "Начали звенеть");
+assert.strictEqual(data.exercises.team_broken.title, "Сломанные слова");
+assert.ok(data.exercises.team_broken.rounds[0].options.indexOf("Нет, лишние части") !== -1);
+assert.ok(data.exercises.team_broken.rounds[3].options.indexOf("Нет, суффикс неправильный") !== -1);
+assert.strictEqual(data.exercises.team_exam.title, "Финальное испытание");
+assert.strictEqual(data.exercises.team_exam.rooms[0].questions[0].question, "Какие слова однокоренные?");
+assert.strictEqual(data.exercises.team_exam.rooms[0].questions[1].question, "Где однокоренные слова?");
+assert.strictEqual(data.exercises.team_exam.rooms[2].questions[3].answer, "Пишем заново");
+assert.strictEqual(data.exercises.team_exam.rooms[3].questions[4].question, "Кто сделал слово слониха?");
+
+const sendFirst = data.exercises.suf_or_prefix.rounds[0];
+assert.strictEqual(sendFirst.word, "подводный");
+assert.strictEqual(sendFirst.part, "под");
+assert.ok(data.exercises.suf_or_prefix.rounds.every((step) => step.word && step.part));
+
+const hide1 = data.exercises.root_hide.rounds[0];
+assert.strictEqual(hide1.coverPrompt, "Угадаешь слово?");
+assert.strictEqual(hide1.owl, "Без корня мы не узнаем слово.");
+assert.strictEqual(data.exercises.root_hide.rounds[1].question, "Без корня остался смысл?");
+
+const src = fs.readFileSync(path.join(root, "js/app.js"), "utf8");
+assert.ok(!/onCheckParse[\s\S]*glowCorrect/.test(src), "parseChoices must not reveal the correct answer");
+assert.ok(/chip\.is-selected/.test(fs.readFileSync(path.join(root, "css/game.css"), "utf8")));
 
 const lookalike = data.exercises.root_lookalike.rounds;
 assert.ok(game.checkSingle(lookalike[0], "однокоренные"));
