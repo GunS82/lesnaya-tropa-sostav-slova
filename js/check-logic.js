@@ -133,6 +133,13 @@ assert.strictEqual(data.exercises.root_three.question, "Разложи слов�
 assert.ok(data.exercises.root_three.items.every((item) => item.scene), "task 6 every word has a picture");
 assert.strictEqual(data.exercises.root_lookalike.title, "Однокоренные или похожие?");
 assert.strictEqual(data.exercises.end_clothes.title, "Окончание меняет форму слова");
+assert.strictEqual(data.exercises.end_clothes.rounds[0].answer, "Это формы одного и того же слова");
+assert.ok(data.exercises.end_clothes.rounds[0].options.indexOf("Это разные слова") !== -1);
+assert.ok(data.exercises.end_fix.rounds.every((step) => step.question === "Вставь пропущенное слово."));
+assert.strictEqual(data.exercises.end_or_new.title, "Формы или однокоренные слова");
+assert.strictEqual(data.exercises.end_or_new.rounds[0].answer, "Формы одного и того же слова");
+assert.strictEqual(data.exercises.end_or_new.rounds[1].answer, "Это однокоренные слова");
+assert.strictEqual(data.exercises.end_or_new.tips[1].text, "Новое слово с другим значением, родственное.");
 assert.strictEqual(data.exercises.end_dress.title, "Подставь окончание");
 assert.strictEqual(data.exercises.suf_house.title, "Создатель новых слов");
 assert.ok(data.exercises.suf_house.rounds[0].question.indexOf("создатель новых слов") !== -1);
